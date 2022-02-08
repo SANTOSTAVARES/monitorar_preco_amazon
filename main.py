@@ -19,9 +19,7 @@ def main():
     else:    
         conteudo_html = BeautifulSoup(requisicao_codigo.content, 'html.parser')
         SKU = conteudo_html.find_all('div', class_="sg-col-inner")
-        
-        #if conteudo_html != None: #Valida se a resposta HTTP foi realizada como vazia.
-                        
+                                      
         with xlsxwriter.Workbook('cotacao.xlsx') as planilha: #Cria arquivo Excel.
             contador = 1
             nova_aba = planilha.add_worksheet()
