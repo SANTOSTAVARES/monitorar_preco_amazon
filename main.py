@@ -1,12 +1,30 @@
 import xlsxwriter
 import requests
 from bs4 import BeautifulSoup
+import pyautogui
+import pyperclip
+import clipboard
+import time 
 
 def main():
     """Realiza uma busca no site da 'Amazon.com.br' pela palavra 'Iphone'.
     E registra num arquivo excel, os resultados dos nomes e preços dos produtos."""
 
-    url_amazon = "https://www.amazon.com.br/s?k=iphone&__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&ref=nb_sb_noss" #URL com os resultados da busca pela palavra Iphone no site da Amazon.
+    pyautogui.hotkey('win', 'x') #Abre o menu rápido de aplicativos.
+    time.sleep(3)
+    pyautogui.click(x=1482, y=416) #Clica no PowerShell
+    time.sleep(10)
+    pyautogui.write('start chrome www.amazon.com.br') #No PowerShell roda o comando que já abre o site da Amazon direto no Google Chrome
+    pyautogui.press('enter')
+    time.sleep(8)
+    pyautogui.click(x=2000, y=110) #Clica no campo de pesquisa para procurar por Iphone
+    pyautogui.write('iphone')
+    pyautogui.press('enter')
+    pyautogui.click(x=2000, y=50)
+    time.sleep(10)
+    pyautogui.hotkey('ctrl', 'c') #Copia o link da pagina que será útil para requisição HTTP a ser feita.
+    
+    url_amazon = clipboard.paste() #URL com os resultados da busca pela palavra Iphone no site da Amazon.
     navegador = {
         'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36"
     } #Informações a serem enviadas, para evitar que o site recuse a resposta HTTP.
